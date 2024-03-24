@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,10 +55,30 @@ class User extends Authenticatable
     }
 
 
+    public function scopeSearch(Builder $builder , $searchText){
+
+        return $builder->whereHas('roles',function($query){
+            $query ->where('name','student');
+        })->whereHas('profile',function($query) use($searchText){
+
+
+            $query->where('firstname','like' ,$searchText.'%')
+            ->where('lastname','like' ,$searchText.'%')
+            ->orWhere('middlename','like' ,$searchText.'%')
+            ->orWhere('gender','like' ,$searchText.'%')
+            ;
+
+        });
+    }
+
 
 
     public function hasRole($role)
     {
         return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function profile(){
+        return $this->hasOne(UserProfile::class);
     }
 }

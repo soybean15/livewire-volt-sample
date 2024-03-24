@@ -10,7 +10,7 @@
 </head>
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
 
-    
+
 
     {{-- NAVBAR mobile only --}}
     <x-nav sticky class="lg:hidden">
@@ -18,7 +18,7 @@
             <x-app-brand />
         </x-slot:brand>
         <x-slot:actions>
-            <label for="main-drawer" class="lg:hidden mr-3">
+            <label for="main-drawer" class="mr-3 lg:hidden">
                 <x-icon name="o-bars-3" class="cursor-pointer" />
             </label>
         </x-slot:actions>
@@ -41,7 +41,7 @@
 
                     <x-list-item :item="$user" value="name" sub-value="email" no-separator no-hover class="-mx-2 !-my-2 rounded">
                         <x-slot:actions>
-                            <x-button icon="o-power" class="btn-circle btn-ghost btn-xs" tooltip-left="logoff" no-wire-navigate link="/logout" />
+                            <x-button icon="o-power" class="btn-circle btn-ghost btn-xs" tooltip-left="logoff" no-wire-navigate  link="/logout" />
                         </x-slot:actions>
                     </x-list-item>
 

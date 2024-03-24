@@ -1,8 +1,18 @@
 <?php
 
-use function Livewire\Volt\{state};
+use function Livewire\Volt\{state,updated,updating};
 use Illuminate\Support\Facades\Auth;
-state(['email', 'password']);
+state([
+    'email',
+    'password'
+]);
+// updated(['email'=>function(){
+//     //dd('updated');
+// }]);
+// updating(['email'=>function(){
+//     dd('updating');
+// }]);
+
 
 $login = function () {
     $this->validate([
@@ -35,18 +45,13 @@ $login = function () {
 
     <x-form wire:submit.prevent="login">
 
-        <x-input label="EMAIL" icon="o-envelope" wire:model="email" />
+        <x-input label="EMAIL" icon="o-envelope" wire:model.live="email" />
 
-        @error('email')
-            {{ $message }}
-        @enderror
 
         <x-input label="Password" type="password" icon="o-eye" wire:model="password" hint="It submits an unmasked value" />
 
 
-        @error('password')
-            {{ $message }}
-        @enderror
+
         <x-slot:actions>
             <x-button label="Cancel" />
             <x-button label="Click me!" class="btn-primary" type="submit" spinner="save" />
