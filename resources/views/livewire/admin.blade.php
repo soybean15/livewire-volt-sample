@@ -1,6 +1,6 @@
 <?php
 
-use function Livewire\Volt\{state,mount,usesPagination,updated,computed,on,uses};
+use function Livewire\Volt\{state,mount,usesPagination,updated,computed,on,uses,with};
 use \App\Models\Student;
 
 
@@ -18,16 +18,19 @@ state([
     'searchText'
 ]);
 
-$students = computed(function () {
-    return  Student::search($this->searchText)->paginate(10);
-});
+//old
+// $students = computed(function () {
+//     return  Student::search($this->searchText)->paginate(10);
+// });
 
+// updated(['searchText' => function (){
 
+//     $this->students = Student::search($this->searchText)->paginate(10);
+// }]);
 
-updated(['searchText' => function (){
+//new
+with(fn () => ['students' =>  Student::search($this->searchText)->paginate(10)]);
 
-    $this->students = Student::search($this->searchText)->paginate(10);
-}]);
 
 
 
@@ -91,7 +94,7 @@ $delete = function($id){
 
     <livewire:components.addusermodal>
 
-        <x-table :headers="$headers" :rows="$this->students" with-pagination>
+        <x-table :headers="$headers" :rows="$students" with-pagination>
 
             @scope('cell_fullname', $student)
 

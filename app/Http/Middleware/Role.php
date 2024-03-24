@@ -21,7 +21,6 @@ class Role
         if(!$user->hasRole($role)){
 
             return redirect('/');
-
         }
 
        return $next($request);
